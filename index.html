@@ -16,7 +16,6 @@
         </div>
     </header>
 
-       
         <div class="startScreen" id="quizDirections">
             <section class="instructionsList">
                 <div class="info">1. Try to answer the following code-related questions within the time limit. </div>
@@ -37,6 +36,13 @@
     <section>
         <!--create "All Done!" screen w initals form and final score-->
         <div id="result" class="result">
+    </section>
+    <section>
+        <!--create high score screen and prompt user to start new quiz-->
+        <div id="playerRanking" class="playerRanking invisible">
+        <button id="highscoreButton" class="invisible quizButton"
+        onclick="startNewQuiz()">Click to restart quiz</button>
+    </div>
     </section>
     <script src="script.js"></script>
 </body>

@@ -28,15 +28,34 @@
   
   }
   
-  
-  .instructionsList {
+  .highscoreDisplay {/*Display the quiz high score results}*/
+    float: left;
+  }
+
+  .timerDisplay {/*Display the countdown function data*/
+    float: right;
+  }
+
+
+  .instructionsList { /*Consolidate .instructionsList and .infolist since properties are the same*/
     text-align: center;
     display:flex;
     background-color: var(--color-three);
     flex-direction: column;
-    color: var(--first-color);
+    color: var(--color-one);
     padding: 100px;
     justify-content: space-between;
+  }
+
+  .infoList {/*Display the information the user needs to know prior to starting the quiz*/
+    text-align: center;
+    display:flex;
+    background-color: var(--color-three);
+    flex-direction: column;
+    color: var(--color-one);
+    padding: 100px;
+    justify-content: space-between;
+
   }
   
   
@@ -44,7 +63,7 @@
     display: flex;
     justify-content: space-evenly;
     background-color: var(--color-three);
-    color: var(--first-color);
+    color: var(--color-one);
   }
   
 
@@ -62,7 +81,7 @@
   
   } 
   
-  .invisible {
+  .invisible {/*Elements with this class will not be displayed*/
     display: none;
   }
   
@@ -71,7 +90,7 @@
     display:flex;
     background-color: var(--color-three);
     flex-direction: column;
-    color: var(--first-color);
+    color: var(--color-one);
     padding: 100px;
     justify-content: space-between;
   }
@@ -84,14 +103,23 @@
     background-color: var(--color-two); 
     justify-content: space-between;
     border: none;
-    color: var(--first-color);
+    color: var(--color-one);
     padding: 15px 32px;
     text-decoration: none;
     display: inline-block;
     font-size: 16px;
     border-radius: 15px;
-  
-   }
+  }
+
+  .playerRanking {
+    text-align: center;
+    display: flex;
+    background-color: var(--color-three);
+    flex-direction: column;
+    color: var(--color-one);
+    padding: 100px;
+    justify-content: space-between;
+  }
 
    
   
