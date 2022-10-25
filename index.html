@@ -9,18 +9,34 @@
 </head>
 <body>
     <header>
-        <!--create a start screen with high score, timer, and start prompt-->
+        <!--create a header with high score, and timer-->
+        <div class="countDown">
+            <div class="timerText invisible" id = "timerText"> Time left: <span id="counter"></span>
+            </div>
+        </div>
     </header>
 
-    <section>
-        <!--create a question screen that will iterate through the questions-->
-    </section>
-        <!-- create a results screen to display results-->
+       
+        <div class="startScreen" id="quizDirections">
+            <section class="instructionsList">
+                <div class="info">1. Try to answer the following code-related questions within the time limit. </div>
+                <div class="info">2. Keep in mind that incorrect answers will penalize your score/time by ten seconds!</div>
+            </section>
+            <button id="startButton" class="quizButton"> Start Quiz!</button>
+        </div>
+
+        <!--create a question screen that will iterate through the questions as user answers each multiple choice question-->
+    <section id="quizSection" class="invisible ">
+            <h1 id="question"> Question </h1>
+            <div id="answers" class="buttons">
+                <button id="answer-1" class="answer">Answer</button>
+                <button id="answer-2" class="answer">Answer</button>
+                <button id="answer-3" class="answer">Answer</button>
+                <button id="answer-4" class="answer">Answer</button>
+            </div>
     <section>
         <!--create "All Done!" screen w initals form and final score-->
-    </section>
-    <section>
-        <!--create high score screen-->
+        <div id="result" class="result">
     </section>
     <script src="script.js"></script>
 </body>
