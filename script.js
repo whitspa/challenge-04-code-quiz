@@ -67,18 +67,33 @@ if (counter === 0 && endOfQuiz === 0){
 
 
 function displayQuestion() { //displays each question and the four multiple choice options
-  document.getElementById("question").innerHTML =
-  questions[questionLog].question;
-  document.getElementById("answer-1").innerHTML =
-    questions[questionLog].answers[0];
-  document.getElementById("answer-2").innerHTML =
-    questions[questionLog].answers[1];
-  document.getElementById("answer-3").innerHTML =
-    questions[questionLog].answers[2];
-  document.getElementById("answer-4").innerHTML =
-    questions[questionLog].answers[3];
+  document.getElementById("question").innerHTML =questions[questionLog].question;
+  for(let i=0; i< questions[questionLog].answers.length; i++){
+    document.getElementById(`answer-${i+1}`).innerHTML = questions[questionLog].answers[i];
+    document.getElementById(`answer-${i+1}`).addEventListener("click", function (event) {
+      event.preventDefault()
+      if (this.textContent === questions[questionLog].correct) {
+        console.log("correct");
+        document.getElementById("result").innerHTML ="CORRECT!"
+      } else {
+        console.log("Wrong!");
+        document.getElementById("result").innerHTML ="Wrong!"
+        counter = counter - 10;
+      }
+      nextQuestion()
+
+  })
+}
 }
 
+function nextQuestion(){
+  questionLog++;
+  if (questionLog === questions.length) {
+    endQuiz();
+  } else {
+    displayQuestion();
+  }
+}
 //click to start quiz
 // document.getElementById("startButton").addEventListener("click",resetTimer);
 //need to add start counter
@@ -89,89 +104,89 @@ function displayQuestion() { //displays each question and the four multiple choi
 
  //validating answers to questions as either "correct" or "wrong".
  //Still working on the 10 second penalty for wrong answers.
-  document.getElementById("answer-1").addEventListener("click", function () {
-    if (this.textContent === questions[questionLog].correct) {
-      console.log("correct");
+  // document.getElementById("answer-1").addEventListener("click", function () {
+  //   if (this.textContent === questions[questionLog].correct) {
+  //     console.log("correct");
       
-      document.getElementById("result").innerHTML ="CORRECT!"
-    } else {
-      console.log("Wrong!");
+  //     document.getElementById("result").innerHTML ="CORRECT!"
+  //   } else {
+  //     console.log("Wrong!");
       
-      document.getElementById("result").innerHTML ="Wrong!"
-      counter = counter - 10;
-    }
-    questionLog++;
-    if (questionLog === questions.length) {
-      endQuiz();
-    } else {
-      displayQuestion();
-    }
-  });
+  //     document.getElementById("result").innerHTML ="Wrong!"
+  //     counter = counter - 10;
+  //   }
+  //   questionLog++;
+  //   if (questionLog === questions.length) {
+  //     endQuiz();
+  //   } else {
+  //     displayQuestion();
+  //   }
+  // });
   
   
-  document.getElementById("answer-2").addEventListener("click", function () {
-    if (this.textContent === questions[questionLog].correct) {
-      console.log("correct");
+  // document.getElementById("answer-2").addEventListener("click", function () {
+  //   if (this.textContent === questions[questionLog].correct) {
+  //     console.log("correct");
     
-      document.getElementById("result").innerHTML ="Correct!"
-    } else {
-      console.log("wrong");
+  //     document.getElementById("result").innerHTML ="Correct!"
+  //   } else {
+  //     console.log("wrong");
       
-      document.getElementById("result").innerHTML ="Wrong!"
-      counter = counter - 10;
-    }
-    questionLog++;
-    if (questionLog === questions.length) {
-      endQuiz();
-    } else {
-      displayQuestion();
-    }
-  });
+  //     document.getElementById("result").innerHTML ="Wrong!"
+  //     counter = counter - 10;
+  //   }
+  //   questionLog++;
+  //   if (questionLog === questions.length) {
+  //     endQuiz();
+  //   } else {
+  //     displayQuestion();
+  //   }
+  // });
   
   
   
   
-  document.getElementById("answer-3").addEventListener("click", function () {
-    if (this.textContent === questions[questionLog].correct) {
-      console.log("correct");
+  // document.getElementById("answer-3").addEventListener("click", function () {
+  //   if (this.textContent === questions[questionLog].correct) {
+  //     console.log("correct");
       
-      document.getElementById("result").innerHTML ="Correct!"
-    } else {
-      console.log("Wrong!");
+  //     document.getElementById("result").innerHTML ="Correct!"
+  //   } else {
+  //     console.log("Wrong!");
       
-      document.getElementById("result").innerHTML ="Wrong!"
+  //     document.getElementById("result").innerHTML ="Wrong!"
       
-      counter = counter - 10;
-    }
-    questionLog++;
-    if (questionLog === questions.length) {
-      endQuiz();
-    } else {
-      displayQuestion();
-    }
-  });
+  //     counter = counter - 10;
+  //   }
+  //   questionLog++;
+  //   if (questionLog === questions.length) {
+  //     endQuiz();
+  //   } else {
+  //     displayQuestion();
+  //   }
+  // });
   
   
   
-  document.getElementById("answer-4").addEventListener("click", function () {
-    if (this.textContent === questions[questionLog].correct) {
-      console.log("correct");
+  // document.getElementById("answer-4").addEventListener("click", function () {
+  //   if (this.textContent === questions[questionLog].correct) {
+  //     console.log("correct");
       
-      document.getElementById("result").innerHTML ="Correct!"
-    } else {
-      console.log("wrong");
+  //     document.getElementById("result").innerHTML ="Correct!"
+  //   } else {
+  //     console.log("wrong");
       
-      document.getElementById("result").innerHTML ="Wrong!"
+  //     document.getElementById("result").innerHTML ="Wrong!"
       
-      counter = counter - 10;
-    }
-    questionLog++;
-    if (questionLog === questions.length) {
-      endQuiz();
-    } else {
-      displayQuestion();
-    }
-  });
+  //     counter = counter - 10;
+  //   }
+  //   questionLog++;
+  //   if (questionLog === questions.length) {
+  //     endQuiz();
+  //   } else {
+  //     displayQuestion();
+  //   }
+  // });
   
   function endQuiz() {
     alert("Ended")
@@ -192,3 +207,11 @@ function displayQuestion() { //displays each question and the four multiple choi
     document.getElementById("startButton").addEventListener("click",startQuiz);
     document.getElementById("startButton").addEventListener("click",countdown);
   
+
+
+    function saveToStorage(newScore){
+      history = JSON.parse(localStorage.getItem('history'))
+      console.log(history)
+    }
+
+    saveToStorage()
