@@ -10,9 +10,9 @@
     //}];
 
     //Issues:
-    //Get scoring working
-    //Enter and Save initials and score
-    //Display score?
+    //counter continues when quiz ends
+    //Create form to Enter initials 
+    //Save initials and score to localStorage
     //Format answer buttons stacked to the left
     //How to get button color to more closely match mock up
 
@@ -36,12 +36,12 @@ var playerScore = 0;
 var timer;
 var counter = 60;
 var playerInitials ="";
-var highscorers = [];//not sure yet about this
-var playerData = {};
-var quizResultData = {}; //For storing multiple quiz scores
+//var highscorers = [];//not sure yet about this
+//var playerData = {};
+//var quizResultData = {}; //For storing multiple quiz scores
 var endOfQuiz = 0; //when no time is left
 
-//end quiz function and enter user initials
+
 function startQuiz() {
   var quizScreen = document.getElementById("quizSection");
      var quizInstructions = document.getElementById("quizDirections");
@@ -50,8 +50,33 @@ function startQuiz() {
          quizInstructions.classList.add("invisible");
          quizScreen.classList.remove("invisible");
          quizScreen.classList.add("startScreen");
-       displayQuestion();
+         displayQuestion();
+}
+
+function countdown(){
+  document.getElementById("counter").innerHTML = counter;
+  timer = setInterval(function (){counter--;
+  document.getElementById("counter").innerHTML = counter;
+if (counter === 0 && endOfQuiz === 0){
+  clearInterval(timer);
+  endQuiz();
+   }
+  }, 1000);
+}
+
+ function displayQuestion() {
+  document.getElementById("question").innerHTML =
+  questions[questionLog].question;
+  document.getElementById("answer-1").innerHTML =
+  questions[questionLog].answers[0];
+  document.getElementById("answer-2").innerHTML =
+  questions[questionLog].answers[1];
+  document.getElementById("answer-3").innerHTML =
+  questions[questionLog].answers[2];
+  document.getElementById("answer-4").innerHTML =
+  questions[questionLog].answers[3];
      }
+
 function countdown(){
   document.getElementById("counter").innerHTML = counter;
   timer = setInterval(function (){counter--;
@@ -64,9 +89,17 @@ if (counter === 0 && endOfQuiz === 0){
 }
 
 
+// only need nextQuestion fcn if you can figure out displayQuestion fcn
+/*function nextQuestion(){
+  questionLog++;
+  if (questionLog === questions.length) {
+    endQuiz();
+  } else {
+    displayQuestion();
+  }
+}
 
-
-function displayQuestion() { //displays each question and the four multiple choice options
+/*function displayQuestion() { //displays each question and the four multiple choice options
   document.getElementById("question").innerHTML =questions[questionLog].question;
   for(let i=0; i< questions[questionLog].answers.length; i++){
     document.getElementById(`answer-${i+1}`).innerHTML = questions[questionLog].answers[i];
@@ -83,135 +116,147 @@ function displayQuestion() { //displays each question and the four multiple choi
       nextQuestion()
 
   })
-}
-}
-
-function nextQuestion(){
-  questionLog++;
-  if (questionLog === questions.length) {
-    endQuiz();
-  } else {
-    displayQuestion();
-  }
-}
-//click to start quiz
-// document.getElementById("startButton").addEventListener("click",resetTimer);
-//need to add start counter
-
-//Need a fcn to list scores and an object to store game results/scores
-
-//function to start quiz. need to add start counter
+ }
+}*/
 
  //validating answers to questions as either "correct" or "wrong".
- //Still working on the 10 second penalty for wrong answers.
-  // document.getElementById("answer-1").addEventListener("click", function () {
-  //   if (this.textContent === questions[questionLog].correct) {
-  //     console.log("correct");
+ 
+  document.getElementById("answer-1").addEventListener("click", function () {
+  if (this.textContent === questions[questionLog].correct) {
+    console.log("correct");
       
-  //     document.getElementById("result").innerHTML ="CORRECT!"
-  //   } else {
-  //     console.log("Wrong!");
+   document.getElementById("result").innerHTML ="CORRECT!"
+ } else {
+   console.log("Wrong!");
       
-  //     document.getElementById("result").innerHTML ="Wrong!"
-  //     counter = counter - 10;
-  //   }
-  //   questionLog++;
-  //   if (questionLog === questions.length) {
-  //     endQuiz();
-  //   } else {
-  //     displayQuestion();
-  //   }
-  // });
+   document.getElementById("result").innerHTML ="Wrong!"
+   counter = counter - 10;
+ }
+ questionLog++;
+ if (questionLog === questions.length) {
+   endQuiz();
+ } else {
+   displayQuestion();
+ }
+});
   
   
-  // document.getElementById("answer-2").addEventListener("click", function () {
-  //   if (this.textContent === questions[questionLog].correct) {
-  //     console.log("correct");
+  document.getElementById("answer-2").addEventListener("click", function () {
+ if (this.textContent === questions[questionLog].correct) {
+   console.log("correct");
     
-  //     document.getElementById("result").innerHTML ="Correct!"
-  //   } else {
-  //     console.log("wrong");
+   document.getElementById("result").innerHTML ="Correct!"
+ } else {
+   console.log("wrong");
       
-  //     document.getElementById("result").innerHTML ="Wrong!"
-  //     counter = counter - 10;
-  //   }
-  //   questionLog++;
-  //   if (questionLog === questions.length) {
-  //     endQuiz();
-  //   } else {
-  //     displayQuestion();
-  //   }
-  // });
+   document.getElementById("result").innerHTML ="Wrong!"
+   counter = counter - 10;
+ }
+ questionLog++;
+ if (questionLog === questions.length) {
+   endQuiz();
+ } else {
+   displayQuestion();
+ }
+});
   
   
   
   
-  // document.getElementById("answer-3").addEventListener("click", function () {
-  //   if (this.textContent === questions[questionLog].correct) {
-  //     console.log("correct");
+  document.getElementById("answer-3").addEventListener("click", function () {
+ if (this.textContent === questions[questionLog].correct) {
+   console.log("correct");
       
-  //     document.getElementById("result").innerHTML ="Correct!"
-  //   } else {
-  //     console.log("Wrong!");
+   document.getElementById("result").innerHTML ="Correct!"
+ } else {
+   console.log("Wrong!");
       
-  //     document.getElementById("result").innerHTML ="Wrong!"
+   document.getElementById("result").innerHTML ="Wrong!"
       
-  //     counter = counter - 10;
-  //   }
-  //   questionLog++;
-  //   if (questionLog === questions.length) {
-  //     endQuiz();
-  //   } else {
-  //     displayQuestion();
-  //   }
-  // });
+   counter = counter - 10;
+ }
+ questionLog++;
+ if (questionLog === questions.length) {
+   endQuiz();
+ } else {
+   displayQuestion();
+ }
+ });
   
   
   
-  // document.getElementById("answer-4").addEventListener("click", function () {
-  //   if (this.textContent === questions[questionLog].correct) {
-  //     console.log("correct");
+  document.getElementById("answer-4").addEventListener("click", function () {
+ if (this.textContent === questions[questionLog].correct) {
+   console.log("correct");
       
-  //     document.getElementById("result").innerHTML ="Correct!"
-  //   } else {
-  //     console.log("wrong");
+   document.getElementById("result").innerHTML ="Correct!"
+ } else {
+   console.log("wrong");
       
-  //     document.getElementById("result").innerHTML ="Wrong!"
+   document.getElementById("result").innerHTML ="Wrong!"
       
-  //     counter = counter - 10;
-  //   }
-  //   questionLog++;
-  //   if (questionLog === questions.length) {
-  //     endQuiz();
-  //   } else {
-  //     displayQuestion();
-  //   }
-  // });
+   counter = counter - 10;
+ }
+ questionLog++;
+ if (questionLog === questions.length) {
+   endQuiz();
+ } else {
+   displayQuestion();
+ }
+ });
   
   function endQuiz() {
     alert("Ended")
-    return
-    var quizscreen =document.getElementById("quizSection");
+    //return
+    //var quizEndScreen = document.getElementById("quizSection");
     var quizInstructions = document.getElementById("quizDirections");
-  var timeRemaining = document.getElementById("timerText");
+    var timeRemaining = document.getElementById("timerText");
       endOfQuiz = 1;
       playerScore = counter;
-      document.getElementsByClassName("countDown");
-      quizInstructions.classList.add("invisible");
-      quizScreen.classList.add("invisible");
-      document.getElementById("result").innerHTML = ("All Done! Your final score is "+ playerScore);
-      timeRemaining.classList.add("invisible");
+      console.log(playerScore);
+      alert("All Done! Your final score is "+ playerScore);
+      //document.getElementsByClassName("countDown");
+      //quizInstructions.classList.add("invisible");
+      
+      //quizScreen.classList.add("invisible");
+      //document.getElementById("result").innerHTML = ("All Done! Your final score is "+ playerScore);
+      //timeRemaining.classList.add("invisible");
     }
     
 
     document.getElementById("startButton").addEventListener("click",startQuiz);
     document.getElementById("startButton").addEventListener("click",countdown);
+    //document.getElementById("startButton").addEventListener("click",resetTimer);
   
 
 
-    function saveToStorage(newScore){
-      history = JSON.parse(localStorage.getItem('history'))
-      console.log(history)
+    function saveToStorage(playerScore){
+      var history = JSON.parse(localStorage.getItem('scores')) || []
+      console.log(history);
+      if(history.includes(playerScore)){
+        console.log("Score already exists") //Avoid duplicates
+        return
+      }
+      console.log(playerScore)
+      history.push(playerScore)
+      localStorage.setItem('scores',JSON.stringify(history))
+      saveToStorage()
+      //renderHistory()
     }
 
-    saveToStorage()
+    /*function renderHistory(){
+      console.log("rendering")
+      var history = JSON.parse(localStorage.getItem('scores')) || []
+      if (!history.length){
+            document.getElementById("here").innerHTML+= <h2>No Past Scores</h2>
+      }
+      for (const score of history) {
+        console.log(score)
+        var playerInitials = score.split(";")[0]
+        var playerScores = score.split(";")[1]
+        console.log(initials)
+      }
+    }
+
+    renderHistory()
+    saveToStorage()*/
