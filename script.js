@@ -10,9 +10,9 @@
     //}];
 
     //Issues:
-    //counter continues when quiz ends
-    //Create form to Enter initials 
-    //Save initials and score to localStorage
+    //Prompt for Initials 
+    //Save initials to localStorage
+    //Render initials and score
     //Format answer buttons stacked to the left
     //How to get button color to more closely match mock up
 
@@ -36,61 +36,76 @@ var playerScore = 0;
 var timer;
 var counter = 60;
 var playerInitials ="";
+
+
 //var highscorers = [];//not sure yet about this
 //var playerData = {};
 //var quizResultData = {}; //For storing multiple quiz scores
-var endOfQuiz = 0; //when no time is left
+var endOfQuiz = 1; //when no time is left
 
 
-function startQuiz() {
-  var quizScreen = document.getElementById("quizSection");
-     var quizInstructions = document.getElementById("quizDirections");
-     var timerTime = document.getElementById("timerText");
-         timerTime.classList.remove("invisible");
-         quizInstructions.classList.add("invisible");
-         quizScreen.classList.remove("invisible");
-         quizScreen.classList.add("startScreen");
-         displayQuestion();
-}
-
+function displayQuestion() {
+ document.getElementById("question").innerHTML =
+ questions[questionLog].question;
+ document.getElementById("answer-0").innerHTML =
+ questions[questionLog].answers[0];
+ document.getElementById("answer-1").innerHTML =
+ questions[questionLog].answers[1];
+ document.getElementById("answer-2").innerHTML =
+ questions[questionLog].answers[2];
+ document.getElementById("answer-3").innerHTML =
+ questions[questionLog].answers[3];
+    }
+    
+    function startQuiz() {
+      var quizScreen = document.getElementById("quizSection");
+      var quizInstructions = document.getElementById("quizDirections");
+      var timerTime = document.getElementById("timerText");
+      timerTime.classList.remove("invisible");
+      quizInstructions.classList.add("invisible");
+      quizScreen.classList.remove("invisible");
+      quizScreen.classList.add("startScreen");
+      displayQuestion();
+    }
+    
+    function endQuiz() {
+      //alert("Ended")
+      //return
+      //var quizEndScreen = document.getElementById("quizSection");
+      //var quizInstructions = document.getElementById("quizDirections");
+      //var timeRemaining = document.getElementById("timerText");
+        endOfQuiz = 0;
+        playerScore = counter;
+        console.log(playerScore);
+        alert("All Done! Your final score is "+ playerScore);localStorage.setItem("playerScore",JSON.stringify(playerScore));
+        document.getElementById("here").textContent = playerScore;
+        var history = JSON.parse(localStorage.getItem('scores'));
+        history.push(playerScore);
+        localStorage.setItem('scores',JSON.stringify(history));
+        document.getElementById("hereB").textContent = history;
+    
+        //document.getElementsByClassName("countDown");
+        //quizInstructions.classList.add("invisible");
+        
+        //quizScreen.classList.add("invisible");
+        //document.getElementById("result").innerHTML = ("All Done! Your final score is "+ playerScore);
+        //timeRemaining.classList.add("invisible");
+      }
 function countdown(){
   document.getElementById("counter").innerHTML = counter;
   timer = setInterval(function (){counter--;
   document.getElementById("counter").innerHTML = counter;
-if (counter === 0 && endOfQuiz === 0){
+//if (counter === 0 || endOfQuiz === 0){
+  if (counter === 0 && endOfQuiz === 0){
+  console.log("does this work");
   clearInterval(timer);
-  endQuiz();
-   }
-  }, 1000);
-}
-
- function displayQuestion() {
-  document.getElementById("question").innerHTML =
-  questions[questionLog].question;
-  document.getElementById("answer-1").innerHTML =
-  questions[questionLog].answers[0];
-  document.getElementById("answer-2").innerHTML =
-  questions[questionLog].answers[1];
-  document.getElementById("answer-3").innerHTML =
-  questions[questionLog].answers[2];
-  document.getElementById("answer-4").innerHTML =
-  questions[questionLog].answers[3];
-     }
-
-function countdown(){
-  document.getElementById("counter").innerHTML = counter;
-  timer = setInterval(function (){counter--;
-  document.getElementById("counter").innerHTML = counter;
-if (counter === 0 && endOfQuiz === 0){
-  clearInterval(timer);
-  endQuiz();
+   endQuiz();
    }
   }, 1000);
 }
 
 
-// only need nextQuestion fcn if you can figure out displayQuestion fcn
-/*function nextQuestion(){
+function nextQuestion(){
   questionLog++;
   if (questionLog === questions.length) {
     endQuiz();
@@ -101,9 +116,9 @@ if (counter === 0 && endOfQuiz === 0){
 
 /*function displayQuestion() { //displays each question and the four multiple choice options
   document.getElementById("question").innerHTML =questions[questionLog].question;
-  for(let i=0; i< questions[questionLog].answers.length; i++){
-    document.getElementById(`answer-${i+1}`).innerHTML = questions[questionLog].answers[i];
-    document.getElementById(`answer-${i+1}`).addEventListener("click", function (event) {
+  for(let i=0; i< questions.length; i++){
+    document.getElementById(`answer-${i}`).innerHTML = questions[questionLog].answers[i];
+    document.getElementById(`answer-${i}`).addEventListener("click", function (event) {
       event.preventDefault()
       if (this.textContent === questions[questionLog].correct) {
         console.log("correct");
@@ -118,10 +133,9 @@ if (counter === 0 && endOfQuiz === 0){
   })
  }
 }*/
-
  //validating answers to questions as either "correct" or "wrong".
  
-  document.getElementById("answer-1").addEventListener("click", function () {
+  document.getElementById("answer-0").addEventListener("click", function () {
   if (this.textContent === questions[questionLog].correct) {
     console.log("correct");
       
@@ -141,7 +155,7 @@ if (counter === 0 && endOfQuiz === 0){
 });
   
   
-  document.getElementById("answer-2").addEventListener("click", function () {
+  document.getElementById("answer-1").addEventListener("click", function () {
  if (this.textContent === questions[questionLog].correct) {
    console.log("correct");
     
@@ -162,8 +176,7 @@ if (counter === 0 && endOfQuiz === 0){
   
   
   
-  
-  document.getElementById("answer-3").addEventListener("click", function () {
+  document.getElementById("answer-2").addEventListener("click", function () {
  if (this.textContent === questions[questionLog].correct) {
    console.log("correct");
       
@@ -185,7 +198,7 @@ if (counter === 0 && endOfQuiz === 0){
   
   
   
-  document.getElementById("answer-4").addEventListener("click", function () {
+  document.getElementById("answer-3").addEventListener("click", function () {
  if (this.textContent === questions[questionLog].correct) {
    console.log("correct");
       
@@ -203,34 +216,17 @@ if (counter === 0 && endOfQuiz === 0){
  } else {
    displayQuestion();
  }
- });
+ })
   
-  function endQuiz() {
-    alert("Ended")
-    //return
-    //var quizEndScreen = document.getElementById("quizSection");
-    var quizInstructions = document.getElementById("quizDirections");
-    var timeRemaining = document.getElementById("timerText");
-      endOfQuiz = 1;
-      playerScore = counter;
-      console.log(playerScore);
-      alert("All Done! Your final score is "+ playerScore);
-      //document.getElementsByClassName("countDown");
-      //quizInstructions.classList.add("invisible");
-      
-      //quizScreen.classList.add("invisible");
-      //document.getElementById("result").innerHTML = ("All Done! Your final score is "+ playerScore);
-      //timeRemaining.classList.add("invisible");
-    }
     
 
     document.getElementById("startButton").addEventListener("click",startQuiz);
     document.getElementById("startButton").addEventListener("click",countdown);
     //document.getElementById("startButton").addEventListener("click",resetTimer);
   
+    
 
-
-    function saveToStorage(playerScore){
+    /*function saveToStorage(playerScore){
       var history = JSON.parse(localStorage.getItem('scores')) || []
       console.log(history);
       if(history.includes(playerScore)){
@@ -240,11 +236,14 @@ if (counter === 0 && endOfQuiz === 0){
       console.log(playerScore)
       history.push(playerScore)
       localStorage.setItem('scores',JSON.stringify(history))
-      saveToStorage()
-      //renderHistory()
-    }
+   }
+    saveToStorage()
 
-    /*function renderHistory(){
+    /*var history = JSON.parse(localStorage.getItem('scores'))
+    for (const score of history) {
+      document.getElementById("hereB").textContent = ('scores')*/
+
+      /*function renderHistory(){
       console.log("rendering")
       var history = JSON.parse(localStorage.getItem('scores')) || []
       if (!history.length){
@@ -258,5 +257,5 @@ if (counter === 0 && endOfQuiz === 0){
       }
     }
 
-    renderHistory()
-    saveToStorage()*/
+    renderHistory()*/
+   
