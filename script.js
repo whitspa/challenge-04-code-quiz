@@ -32,10 +32,11 @@
 
 //Here are the variables we need to keep track of. I'm thinking keep them in an object called playerData
 var questionLog = 0; //records the user's answer choice for each question
-var playerScore = 0;
+var playerTime = 0;
 var timer;
 var counter = 60;
 var playerInitials ="";
+ 
 
 
 //var highscorers = [];//not sure yet about this
@@ -75,14 +76,24 @@ function displayQuestion() {
       //var quizInstructions = document.getElementById("quizDirections");
       //var timeRemaining = document.getElementById("timerText");
         endOfQuiz = 0;
-        playerScore = counter;
-        console.log(playerScore);
-        alert("All Done! Your final score is "+ playerScore);localStorage.setItem("playerScore",JSON.stringify(playerScore));
-        document.getElementById("here").textContent = playerScore;
+        playerTime = counter;
+        console.log(playerTime);
+        alert("All Done! Your final score is "+ playerTime);
+        let playerInitials = prompt("Enter initials:");
+        //If (playerInitials != null) 
+        document.getElementById("promptForInitials").textContent = playerInitials;
+        
+        /*localStorage.setItem("playerScore",JSON.stringify(playerTime));
+        document.getElementById("here").textContent = playerTime;
         var history = JSON.parse(localStorage.getItem('scores'));
         history.push(playerScore);
         localStorage.setItem('scores',JSON.stringify(history));
-        document.getElementById("hereB").textContent = history;
+        document.getElementById("hereB").textContent = history;*/
+      }
+        //let playerInitials = prompt("Enter initials:");
+        //If (playerInitials != null) 
+         // document.getElementById("promptForInitials");
+        
     
         //document.getElementsByClassName("countDown");
         //quizInstructions.classList.add("invisible");
@@ -90,16 +101,15 @@ function displayQuestion() {
         //quizScreen.classList.add("invisible");
         //document.getElementById("result").innerHTML = ("All Done! Your final score is "+ playerScore);
         //timeRemaining.classList.add("invisible");
-      }
+      //}
 function countdown(){
   document.getElementById("counter").innerHTML = counter;
   timer = setInterval(function (){counter--;
   document.getElementById("counter").innerHTML = counter;
-//if (counter === 0 || endOfQuiz === 0){
-  if (counter === 0 && endOfQuiz === 0){
+if (counter === 0 || endOfQuiz === 0){
   console.log("does this work");
   clearInterval(timer);
-   endQuiz();
+   //endQuiz();
    }
   }, 1000);
 }
@@ -216,7 +226,7 @@ function nextQuestion(){
  } else {
    displayQuestion();
  }
- })
+ });
   
     
 
@@ -224,7 +234,19 @@ function nextQuestion(){
     document.getElementById("startButton").addEventListener("click",countdown);
     //document.getElementById("startButton").addEventListener("click",resetTimer);
   
-    
+    function saveLastScore() {
+      var playerEvent = {
+        playerInitials: playerInitials.valueOf,
+        playerTime: playerTime.valueOf,
+      };
+      localStorage.setItem("playerEvent", JSON.stringify(playerEvent));
+      document.getElementById("playerEvent").textContent = playerEvent;
+      console.log(playerEvent);
+    }
+    saveLastScore()
+    Object.keys(playerEvent)
+    //console.log(playerEvent);
+    //document.getElementById("playerEvent").textContent = playerEvent;
 
     /*function saveToStorage(playerScore){
       var history = JSON.parse(localStorage.getItem('scores')) || []
@@ -258,4 +280,4 @@ function nextQuestion(){
     }
 
     renderHistory()*/
-   
+    
