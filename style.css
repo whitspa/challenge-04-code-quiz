@@ -1,7 +1,7 @@
 /*defining/styling my colors at the root/parent so I can call them as color variables throughout the solution*/
 :root {
     --color-one: black;
-    --color-two: purple; /*how to get this color to match mockup?*/
+    --color-two: purple; 
     --color-three: white;
   }
   
@@ -28,16 +28,13 @@
   
   }
   
-  .highscoreDisplay {/*Display the quiz high score results}*/
-    float: left;
-  }
 
   .timerDisplay {/*Display the countdown function data*/
     float: right;
   }
 
 
-  .instructionsList { /*Consolidate .instructionsList and .infolist since properties are the same*/
+  .instructionsList { 
     text-align: center;
     display:flex;
     background-color: var(--color-three);
@@ -111,15 +108,7 @@
     border-radius: 15px;
   }
 
-  .playerRanking {
-    text-align: center;
-    display: flex;
-    background-color: var(--color-three);
-    flex-direction: column;
-    color: var(--color-one);
-    padding: 100px;
-    justify-content: space-between;
-  }
+ 
 
    
   

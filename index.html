@@ -9,7 +9,7 @@
 </head>
 <body>
     <header>
-        <!--create a header with high score, and timer-->
+        <!--create a header which displays timer when the quiz is under way-->
         <div class="countDown">
             <div class="timerText invisible" id = "timerText"> Time left: <span id="counter"></span>
             </div>
@@ -39,13 +39,7 @@
     <section id = "hereB"></section>
     <section id ="promptForInitials"></section>
     <section id ="playerEvent"></section>
-    <section>
-        <!--create high score screen and prompt user to start new quiz-->
-        <div id="playerRanking" class="playerRanking invisible">
-        <button id="highscoreButton" class="invisible quizButton"
-        onclick="startNewQuiz()">Click to restart quiz</button>
-    </div>
-    </section>
+    <section id ="quizHistory"></section>
     <script src="script.js"></script>
 </body>
 </html>
